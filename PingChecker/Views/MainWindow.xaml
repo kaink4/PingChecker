@@ -1,0 +1,49 @@
+﻿<Window x:Class="PingChecker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PingChecker" 
+        xmlns:design="clr-namespace:PingChecker.ViewModelsDesign" 
+        xmlns:views="clr-namespace:PingChecker.Views"
+        d:DataContext="{d:DesignInstance Type=design:MainWindowViewModelDesign, d:IsDesignTimeCreatable=True}"
+        
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="280" 
+        Width="342"
+
+  >
+
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" 
+                    Command="{Binding CloseCommand}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+    </Window.InputBindings>
+
+    <StackPanel Orientation="Horizontal"  >
+        <TextBox Height="240" Margin="5,5,0,0" Text="{Binding Results}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="133" IsEnabled="False"/>
+        <DockPanel Height="240" Margin="5,5,0,0" VerticalAlignment="Top">
+            <GroupBox Width="176" Height="75" Header="Alarm" DockPanel.Dock="Top">
+                <StackPanel>
+                    <RadioButton  Content="None"/>
+                    <RadioButton  Content="When ping lower"/>
+                    <RadioButton  Content="When ping higher"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Width="176"  Header="Time settings" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5">
+
+                <StackPanel >
+
+                    <Label Content="{Binding TimeLabel}"/>
+                    <Slider HorizontalAlignment="Left" Margin="10,10,0,0" Width="151" />
+                    <Label Content="{Binding PingLabel}"/>
+                    <Slider HorizontalAlignment="Left" Margin="10,10,0,0" Width="151" />
+
+
+                </StackPanel>
+
+            </GroupBox>
+        </DockPanel>
+    </StackPanel>
+</Window>

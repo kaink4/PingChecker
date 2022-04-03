@@ -14,29 +14,25 @@ using PingChecker.ViewModels;
 
 namespace PingChecker.ViewModelsDesign
 {
-    public class MainWindowViewModelDesign
+    public class MainWindowViewModelDesign : ViewModelBase
     {
-        public string Results
+        public virtual string Results
         {
             get => "Result1\nResult2\nResult3\nResult4\nResult5\n";
             set  { }
         }
 
-
-        public string TimeLabel
+        public virtual string PingLabel
         {
-            get => "Time 20 s";
+            get => "40 ms";
             set { }
         }
 
-        public string PingLabel
+        public virtual string Site
         {
-            get => "Ping 40 ms";
+            get => "www.google.pl";
             set { }
         }
-
-
-
 
         public ICommand GetSettingsCommand => new RelayCommand(_ => { });
 

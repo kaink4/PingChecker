@@ -22,7 +22,7 @@
     </Window.InputBindings>
 
     <StackPanel Orientation="Horizontal"  >
-        <TextBox Height="240" Margin="5,5,0,0" Text="{Binding Results}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="133" IsEnabled="False"/>
+        <TextBox Height="240" Margin="5,5,0,5" Text="{Binding Results}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="133" IsEnabled="False"/>
         <DockPanel Height="240" Margin="5,5,0,0" VerticalAlignment="Top">
             <GroupBox Width="176" Height="75" Header="Alarm" DockPanel.Dock="Top">
                 <StackPanel>
@@ -31,18 +31,14 @@
                     <RadioButton  Content="When ping higher"/>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Width="176"  Header="Time settings" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5">
-
+            <GroupBox Width="176"  Header="Ping threshold" DockPanel.Dock="Top"  Height="80">
                 <StackPanel >
-
-                    <Label Content="{Binding TimeLabel}"/>
-                    <Slider HorizontalAlignment="Left" Margin="10,10,0,0" Width="151" />
                     <Label Content="{Binding PingLabel}"/>
-                    <Slider HorizontalAlignment="Left" Margin="10,10,0,0" Width="151" />
-
-
+                    <Slider Value="{Binding PingThreshold}" HorizontalAlignment="Left" Margin="10,10,0,0" Width="150" />
                 </StackPanel>
-
+            </GroupBox>
+            <GroupBox Width="176"  Header="Site" DockPanel.Dock="Top"  Height="45">
+                <TextBox  Text="{Binding Site, Mode=TwoWay}"></TextBox>
             </GroupBox>
         </DockPanel>
     </StackPanel>

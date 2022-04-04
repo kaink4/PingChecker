@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=design:MainWindowViewModelDesign, d:IsDesignTimeCreatable=True}"
         
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Ping Checker" 
         Height="280" 
         Width="342"
 
@@ -34,11 +34,11 @@
             <GroupBox Width="176"  Header="Ping threshold" DockPanel.Dock="Top"  Height="80">
                 <StackPanel >
                     <Label Content="{Binding PingLabel}"/>
-                    <Slider Value="{Binding PingThreshold}" HorizontalAlignment="Left" Margin="10,10,0,0" Width="150" />
+                    <!--<Slider Value="{Binding PingThreshold}" HorizontalAlignment="Left" Margin="10,10,0,0" Width="150" />-->
                 </StackPanel>
             </GroupBox>
             <GroupBox Width="176"  Header="Site" DockPanel.Dock="Top"  Height="45">
-                <TextBox  Text="{Binding Site, Mode=TwoWay}"></TextBox>
+                <TextBox Text="{Binding Site, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </GroupBox>
         </DockPanel>
     </StackPanel>

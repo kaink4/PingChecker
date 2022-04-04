@@ -26,6 +26,10 @@ namespace PingChecker.ViewModels
         private readonly IOptions<AppSettings> _options;
         private readonly IWindowFactory _windowFactory;
 
+        private readonly TimeSpan _timeout = TimeSpan.FromSeconds(1);
+
+       
+
         private string _results = "";
         public override string Results
         {
@@ -48,11 +52,27 @@ namespace PingChecker.ViewModels
             }
         }
 
+        private int _pingThreshold = 40;
+        public override int PingThreshold
+        {
+            get => _pingThreshold;
+            set
+            {
+                _pingThreshold = value;
+                OnPropertyChanged(nameof(PingThreshold));
+            }
+        }
+
+        private readonly SoundPlayer _soundPlayer = new (Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/BELLLrg_Church bell (ID 0135)_BSB.wav"));
+        private bool _alarm = false;
+
+
         public MainWindowViewModel(ISampleService sampleService, IOptions<AppSettings> options, IWindowFactory windowFactory)
         {
             _sampleService = sampleService;
             _options = options;
             _windowFactory = windowFactory;
+            _soundPlayer.LoadAsync();
 
             StartPinging();
         }
@@ -81,82 +101,97 @@ namespace PingChecker.ViewModels
             //    }
             //});
 
+
+
+            //Task.Run(async () =>
+            //{
+            //    var player = new SoundPlayer(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/BELLLrg_Church bell (ID 0135)_BSB.wav"));
+            //    player.Load();
+
+            //    while(true)
+            //    {
+            //        if(_alarm)
+            //        {
+            //            player.PlayLooping();
+            //        }
+                    
+
+            //        Thread.Sleep(_timeout/2);
+            //    }
+            //});
+
             Task.Run(async () =>
             {
+                
 
-
-                var results = new List<(IPStatus, long)>();
+                var results = new Queue<(string Status, long? Ping)>();
                 var ping = new Ping();
+
+
+                var stringBuilder = new StringBuilder();
 
 
                 while (true)
                 {
-                    long sleepTime = 1000;
+                    var sleepTime = _timeout;
 
                     try
                     {
-                        var result = await ping.SendPingAsync("www.google.pl", 1000);
+                        var result = await ping.SendPingAsync(Site, (int)_timeout.TotalMilliseconds);
 
                         if (result.Status == IPStatus.Success)
                         {
-                            //if (stopWatch.Elapsed.TotalSeconds > this.trackBar1.Value)
-                            //{
-                            //    var alarmMode = GetAlarmMode();
-                            //    //  var pingSetting =  (int)textBox1.Invoke()
-
-                            //    if (alarmMode == AlarmMode.WhenPingLower && result.RoundtripTime < trackBar2.Value)
-                            //    {
-                            //        _playAlarm = true;
-                            //    }
-                            //    else if (alarmMode == AlarmMode.WhenPingHigher && result.RoundtripTime > trackBar2.Value)
-                            //    {
-                            //        _playAlarm = true;
-                            //    }
-                            //    else
-                            //    {
-                            //        stopWatch.Restart();
-                            //        _playAlarm = false;
-                            //    }
-                            //}
+                            results.Enqueue((result.Status.ToString(), result.RoundtripTime));
 
                         }
                         else
                         {
-                            //stopWatch.Restart();
-                            //_playAlarm = false;
+                            results.Enqueue((result.Status.ToString(), null));
                         }
 
-
-
-                        results.Add((result.Status, result.RoundtripTime));
-
-                        sleepTime = 1000 - result.RoundtripTime;
+                        sleepTime = _timeout - TimeSpan.FromMilliseconds(result.RoundtripTime);
                     }
                     catch (PingException)
                     {
-                        //results.Add(());
-                        //stopWatch.Stop();
+                        results.Enqueue(("Exception", null));
                     }
 
                     if(results.Count > 14)
                     {
-                        results.RemoveAt(0);
+                        results.Dequeue();
                     }
 
-                    var stringBuilder = new StringBuilder();
+                    var lastResult = results.TakeLast(5).Select(x => x.Ping);
+                    if(lastResult.Any(x => x == null) || lastResult.Any(x => x > PingThreshold))
+                    {
+                        _soundPlayer.Stop();
+                        _alarm = false;
+                    }
+                    else
+                    {
+                        if (!_alarm)
+                        {
+                            _soundPlayer.PlayLooping();
+                            _alarm = true;
+                        }
+                    }
+
                     foreach (var result in results)
                     {
-                        string
+                        if (result.Ping != null)
+                        {
+                            stringBuilder.AppendLine($"{result.Status} {result.Ping} ms");
+                        }
+                        else 
+                        {
+                            stringBuilder.AppendLine($"{result.Status}");
+                        }
                     }
+              
+                    Results = stringBuilder.ToString();
+                    stringBuilder.Clear();
 
-
-                    var text = string.Join(Environment.NewLine, results.Select(x => {  }));
-                    Results = text;
-                   // SetTextBox(text);
-
-
-
-                    Thread.Sleep(TimeSpan.FromMilliseconds(sleepTime));
+                    Thread.Sleep(sleepTime);
                 }
             });
         }

@@ -34,6 +34,12 @@ namespace PingChecker.ViewModelsDesign
             set { }
         }
 
+        public virtual int PingThreshold
+        {
+            get => 40;
+            set { }
+        }
+
         public ICommand GetSettingsCommand => new RelayCommand(_ => { });
 
 

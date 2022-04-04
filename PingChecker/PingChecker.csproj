@@ -15,6 +15,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\BELLLrg_Church bell %28ID 0135%29_BSB.wav" />
+    <None Remove="Resources\Notification_Chime.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\BELLLrg_Church bell (ID 0135)_BSB.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Notification_Chime.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -32,10 +46,6 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,7 @@ using PingChecker.Infrastructure;
 
 using PingChecker.Views;
 using PingChecker.ViewModels;
+using PingChecker.Enums;
 
 namespace PingChecker.ViewModelsDesign;
 
@@ -40,9 +41,24 @@ public class MainWindowViewModelDesign : ViewModelBase
         set { }
     }
 
+    //public virtual AlarmMode AlarmMode
+    //{
+    //    get => AlarmMode.Higher;
+    //    set { }
+    //}
+
+    public virtual string AlarmMode
+    {
+        get => "Higher";
+        set { }
+    }
+
     public ICommand GetSettingsCommand => new RelayCommand(_ => { });
 
 
     public ICommand ShowSampleWindowCommand => new RelayCommand<string?>(_ => { });
+
+    public ICommand ChangeAlarmMode =>  new RelayCommand(_ => { });
+
 }
 

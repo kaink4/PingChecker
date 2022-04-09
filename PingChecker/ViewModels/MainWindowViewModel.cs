@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Windows.Media;
 using System.IO;
 using PingChecker.ViewModelsDesign;
+using PingChecker.Enums;
 
 namespace PingChecker.ViewModels;
 
@@ -60,6 +61,27 @@ public class MainWindowViewModel : MainWindowViewModelDesign
         {
             _pingThreshold = value;
             OnPropertyChanged(nameof(PingThreshold));
+        }
+    }
+
+    //private AlarmMode _alarmMode = AlarmMode.None;
+    //public override AlarmMode AlarmMode
+    //{
+    //    get => _alarmMode;
+    //    set
+    //    {
+    //        _alarmMode = value;
+    //        OnPropertyChanged(nameof(AlarmMode));
+    //    }
+    //}
+    private string _alarmMode = "None";
+    public override string AlarmMode
+    {
+        get => _alarmMode;
+        set
+        {
+            _alarmMode = value;
+            OnPropertyChanged(nameof(AlarmMode));
         }
     }
 

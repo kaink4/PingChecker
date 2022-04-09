@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PingChecker" 
         xmlns:design="clr-namespace:PingChecker.ViewModelsDesign" 
-        xmlns:views="clr-namespace:PingChecker.Views"
+        xmlns:views="clr-namespace:PingChecker.Views" 
+        xmlns:con="clr-namespace:PingChecker.Converters"
         d:DataContext="{d:DesignInstance Type=design:MainWindowViewModelDesign, d:IsDesignTimeCreatable=True}"
         
         mc:Ignorable="d"
@@ -20,15 +21,27 @@
                     Command="{Binding CloseCommand}" 
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
     </Window.InputBindings>
-
+    <Window.Resources>
+        <con:AlarmModeConverter x:Key="AlarmModeConverterKey"/>
+    </Window.Resources>
     <StackPanel Orientation="Horizontal"  >
         <TextBox Height="240" Margin="5,5,0,5" Text="{Binding Results}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="133" IsEnabled="False"/>
         <DockPanel Height="240" Margin="5,5,0,0" VerticalAlignment="Top">
             <GroupBox Width="176" Height="75" Header="Alarm" DockPanel.Dock="Top">
                 <StackPanel>
-                    <RadioButton GroupName="AlarmMode" Content="None"/>
-                    <RadioButton GroupName="AlarmMode" Content="When ping lower"/>
-                    <RadioButton GroupName="AlarmMode" Content="When ping higher"/>
+                    <RadioButton GroupName="AlarmMode" Content="None" 
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter=None}"
+                                 Command="{Binding ChangeAlarmMode}" 
+                                 CommandParameter="None" />
+                                
+                    <RadioButton GroupName="AlarmMode" Content="When ping lower" 
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter=Lower}"
+                                 Command="{Binding ChangeAlarmMode}" 
+                                 CommandParameter="Lower" />
+                    <RadioButton GroupName="AlarmMode" Content="When ping higher" 
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter=Higher}"
+                                 Command="{Binding ChangeAlarmMode}" 
+                                 CommandParameter="Higher" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Width="176"  Header="Ping threshold" DockPanel.Dock="Top"  Height="80">

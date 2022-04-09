@@ -15,17 +15,16 @@ using System.Windows.Shapes;
 using PingChecker.Infrastructure;
 using PingChecker.ViewModels;
 
-namespace PingChecker
+namespace PingChecker;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window, ICloseable
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window, ICloseable
+    public MainWindow(MainWindowViewModel mainWindowViewModel)
     {
-        public MainWindow(MainWindowViewModel mainWindowViewModel)
-        {
-            InitializeComponent();
-            DataContext = mainWindowViewModel;
-        }
+        InitializeComponent();
+        DataContext = mainWindowViewModel;
     }
 }

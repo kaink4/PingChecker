@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PingChecker.Infrastructure
+namespace PingChecker.Infrastructure;
+
+public interface ICloseable
 {
-    public interface ICloseable
-    {
-        void Close();
-    }
+    void Close();
 }

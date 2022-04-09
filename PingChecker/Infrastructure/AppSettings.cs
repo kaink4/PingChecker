@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PingChecker.Infrastructure
+namespace PingChecker.Infrastructure;
+
+public class AppSettings
 {
-    public class AppSettings
-    {
-        public string StringSetting { get; set; } = "";
+    public string StringSetting { get; set; } = "";
 
-        public int IntegerSetting { get; set; }
+    public int IntegerSetting { get; set; }
 
-        public bool BooleanSetting { get; set; }
-    }
+    public bool BooleanSetting { get; set; }
 }

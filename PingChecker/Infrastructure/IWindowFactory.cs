@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 
-namespace PingChecker.Infrastructure
+namespace PingChecker.Infrastructure;
+
+public interface IWindowFactory
 {
-    public interface IWindowFactory
-    {
-        T CreateWindow<T>() where T : Window;
-    }
+    T CreateWindow<T>() where T : Window;
 }

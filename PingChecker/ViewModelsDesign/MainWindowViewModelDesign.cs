@@ -12,37 +12,37 @@ using PingChecker.Infrastructure;
 using PingChecker.Views;
 using PingChecker.ViewModels;
 
-namespace PingChecker.ViewModelsDesign
+namespace PingChecker.ViewModelsDesign;
+
+public class MainWindowViewModelDesign : ViewModelBase
 {
-    public class MainWindowViewModelDesign : ViewModelBase
+    public virtual string Results
     {
-        public virtual string Results
-        {
-            get => "Result1\nResult2\nResult3\nResult4\nResult5\n";
-            set  { }
-        }
-
-        public virtual string PingLabel
-        {
-            get => "40 ms";
-            set { }
-        }
-
-        public virtual string Site
-        {
-            get => "www.google.pl";
-            set { }
-        }
-
-        public virtual int PingThreshold
-        {
-            get => 40;
-            set { }
-        }
-
-        public ICommand GetSettingsCommand => new RelayCommand(_ => { });
-
-
-        public ICommand ShowSampleWindowCommand => new RelayCommand<string?>(_ => { });
+        get => "Result1\nResult2\nResult3\nResult4\nResult5\n";
+        set  { }
     }
+
+    public virtual string PingLabel
+    {
+        get => "40 ms";
+        set { }
+    }
+
+    public virtual string Site
+    {
+        get => "www.google.pl";
+        set { }
+    }
+
+    public virtual int PingThreshold
+    {
+        get => 40;
+        set { }
+    }
+
+    public ICommand GetSettingsCommand => new RelayCommand(_ => { });
+
+
+    public ICommand ShowSampleWindowCommand => new RelayCommand<string?>(_ => { });
 }
+

@@ -6,14 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PingChecker.Infrastructure
+namespace PingChecker.Infrastructure;
+
+public class WindowFactory : IWindowFactory
 {
-    public class WindowFactory : IWindowFactory
-    {
-        private readonly IServiceProvider _serviceProvider;
+    private readonly IServiceProvider _serviceProvider;
 
-        public WindowFactory(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
+    public WindowFactory(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
-        public T CreateWindow<T>() where T : Window => (T)_serviceProvider.GetRequiredService(typeof(T));
-    }
+    public T CreateWindow<T>() where T : Window => (T)_serviceProvider.GetRequiredService(typeof(T));
 }

@@ -64,18 +64,8 @@ public class MainWindowViewModel : MainWindowViewModelDesign
         }
     }
 
-    //private AlarmMode _alarmMode = AlarmMode.None;
-    //public override AlarmMode AlarmMode
-    //{
-    //    get => _alarmMode;
-    //    set
-    //    {
-    //        _alarmMode = value;
-    //        OnPropertyChanged(nameof(AlarmMode));
-    //    }
-    //}
-    private string _alarmMode = "None";
-    public override string AlarmMode
+    private AlarmMode _alarmMode = AlarmMode.Lower;
+    public override AlarmMode AlarmMode
     {
         get => _alarmMode;
         set
@@ -84,6 +74,16 @@ public class MainWindowViewModel : MainWindowViewModelDesign
             OnPropertyChanged(nameof(AlarmMode));
         }
     }
+    //private string _alarmMode = "None";
+    //public override AlarmM AlarmMode
+    //{
+    //    get => _alarmMode;
+    //    set
+    //    {
+    //        _alarmMode = value;
+    //        OnPropertyChanged(nameof(AlarmMode));
+    //    }
+    //}
 
     private readonly SoundPlayer _soundPlayer = new (Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/BELLLrg_Church bell (ID 0135)_BSB.wav"));
     private bool _alarm = false;
@@ -154,8 +154,8 @@ public class MainWindowViewModel : MainWindowViewModelDesign
                 {
                     if (!_alarm)
                     {
-                        _soundPlayer.PlayLooping();
-                        _alarm = true;
+                        //_soundPlayer.PlayLooping();
+                        //_alarm = true;
                     }
                 }
 

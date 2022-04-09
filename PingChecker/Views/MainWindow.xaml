@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:PingChecker.Views" 
         xmlns:con="clr-namespace:PingChecker.Converters"
         d:DataContext="{d:DesignInstance Type=design:MainWindowViewModelDesign, d:IsDesignTimeCreatable=True}"
-        
+        xmlns:enums="clr-namespace:PingChecker.Enums"
         mc:Ignorable="d"
         Title="Ping Checker" 
         Height="280" 
@@ -30,18 +30,12 @@
             <GroupBox Width="176" Height="75" Header="Alarm" DockPanel.Dock="Top">
                 <StackPanel>
                     <RadioButton GroupName="AlarmMode" Content="None" 
-                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter=None}"
-                                 Command="{Binding ChangeAlarmMode}" 
-                                 CommandParameter="None" />
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter={x:Static enums:AlarmMode.None}}" />
                                 
                     <RadioButton GroupName="AlarmMode" Content="When ping lower" 
-                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter=Lower}"
-                                 Command="{Binding ChangeAlarmMode}" 
-                                 CommandParameter="Lower" />
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter={x:Static enums:AlarmMode.Lower}}" />
                     <RadioButton GroupName="AlarmMode" Content="When ping higher" 
-                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter=Higher}"
-                                 Command="{Binding ChangeAlarmMode}" 
-                                 CommandParameter="Higher" />
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter={x:Static enums:AlarmMode.Higher}}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Width="176"  Header="Ping threshold" DockPanel.Dock="Top"  Height="80">

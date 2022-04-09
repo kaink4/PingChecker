@@ -14,12 +14,12 @@ namespace PingChecker.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (string)parameter == (string)value;
+            return (AlarmMode)parameter == (AlarmMode)value; 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? parameter : Binding.DoNothing;
+            return (bool)value ? (AlarmMode)parameter : Binding.DoNothing;
         }
     }
 }

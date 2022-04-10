@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using PingChecker.Infrastructure;
 
-using PingChecker.Views;
+
 using PingChecker.ViewModels;
 using PingChecker.Enums;
 

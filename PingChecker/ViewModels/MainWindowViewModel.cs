@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using PingChecker.Services;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using PingChecker.Infrastructure;
-using PingChecker.Views;
+
 using System.Threading;
 using System.Media;
 using System.Net.NetworkInformation;
@@ -23,13 +23,7 @@ namespace PingChecker.ViewModels;
 
 public class MainWindowViewModel : MainWindowViewModelDesign
 {
-    private readonly ISampleService _sampleService;
-    private readonly IOptions<AppSettings> _options;
-    private readonly IWindowFactory _windowFactory;
-
     private readonly TimeSpan _timeout = TimeSpan.FromSeconds(1);
-
-       
 
     private string _results = "";
     public override string Results
@@ -95,11 +89,9 @@ public class MainWindowViewModel : MainWindowViewModelDesign
     private bool _alarm = false;
 
 
-    public MainWindowViewModel(ISampleService sampleService, IOptions<AppSettings> options, IWindowFactory windowFactory)
+    public MainWindowViewModel()
     {
-        _sampleService = sampleService;
-        _options = options;
-        _windowFactory = windowFactory;
+
         _soundPlayer.LoadAsync();
 
         StartPinging();
@@ -147,18 +139,28 @@ public class MainWindowViewModel : MainWindowViewModelDesign
                 }
 
                 var lastResult = results.TakeLast(5).Select(x => x.Ping);
-                if(lastResult.Any(x => x == null) || lastResult.Any(x => x > PingThreshold))
+
+                Func<long?, bool> alarmOnFunc = AlarmMode switch
                 {
-                    _soundPlayer.Stop();
-                    _alarm = false;
-                }
-                else
+                    AlarmMode.None => x => false,
+                    AlarmMode.Lower => x => x < ExpPingThreshold,
+                    AlarmMode.Higher => x => x > ExpPingThreshold,
+                    _ => throw new NotImplementedException(),
+                };
+
+
+                if (!lastResult.Any(x => x == null) && !lastResult.Any(x => !alarmOnFunc(x)))
                 {
                     if (!_alarm)
                     {
-                        //_soundPlayer.PlayLooping();
-                        //_alarm = true;
+                        _soundPlayer.PlayLooping();
+                        _alarm = true;
                     }
+                }
+                else
+                {
+                    _soundPlayer.Stop();
+                    _alarm = false;
                 }
 
                 foreach (var result in results)

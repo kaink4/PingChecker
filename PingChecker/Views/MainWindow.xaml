@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PingChecker" 
         xmlns:design="clr-namespace:PingChecker.ViewModelsDesign" 
-        xmlns:views="clr-namespace:PingChecker.Views" 
         xmlns:converter="clr-namespace:PingChecker.Converters"
+        
         d:DataContext="{d:DesignInstance Type=design:MainWindowViewModelDesign, d:IsDesignTimeCreatable=True}"
         xmlns:enums="clr-namespace:PingChecker.Enums"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"

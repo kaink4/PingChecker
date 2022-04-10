@@ -41,6 +41,12 @@ public class MainWindowViewModelDesign : ViewModelBase
         set { }
     }
 
+    public virtual int ExpPingThreshold
+    {
+        get => 40;
+        set { }
+    }
+
     public virtual AlarmMode AlarmMode
     {
         get => AlarmMode.Higher;

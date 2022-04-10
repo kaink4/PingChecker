@@ -53,7 +53,7 @@ public class MainWindowViewModel : MainWindowViewModelDesign
         }
     }
 
-    private int _pingThreshold = 40;
+    private int _pingThreshold = 133;
     public override int PingThreshold
     {
         get => _pingThreshold;
@@ -61,7 +61,13 @@ public class MainWindowViewModel : MainWindowViewModelDesign
         {
             _pingThreshold = value;
             OnPropertyChanged(nameof(PingThreshold));
+            OnPropertyChanged(nameof(ExpPingThreshold));
         }
+    }
+
+    public override int ExpPingThreshold
+    {
+        get => (int)Math.Pow(1.03, Convert.ToDouble(_pingThreshold));
     }
 
     private AlarmMode _alarmMode = AlarmMode.Lower;
@@ -122,15 +128,11 @@ public class MainWindowViewModel : MainWindowViewModelDesign
                 {
                     var result = await ping.SendPingAsync(Site, (int)_timeout.TotalMilliseconds);
 
-                    if (result.Status == IPStatus.Success)
-                    {
-                        results.Enqueue((result.Status.ToString(), result.RoundtripTime));
+                    var roundTripTime = result.Status == IPStatus.Success
+                        ? result.RoundtripTime
+                        : (long?)null;
 
-                    }
-                    else
-                    {
-                        results.Enqueue((result.Status.ToString(), null));
-                    }
+                    results.Enqueue((result.Status.ToString(), roundTripTime));
 
                     sleepTime = _timeout - TimeSpan.FromMilliseconds(result.RoundtripTime);
                 }

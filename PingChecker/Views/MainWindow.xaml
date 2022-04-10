@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:PingChecker" 
         xmlns:design="clr-namespace:PingChecker.ViewModelsDesign" 
         xmlns:views="clr-namespace:PingChecker.Views" 
-        xmlns:con="clr-namespace:PingChecker.Converters"
+        xmlns:converter="clr-namespace:PingChecker.Converters"
         d:DataContext="{d:DesignInstance Type=design:MainWindowViewModelDesign, d:IsDesignTimeCreatable=True}"
         xmlns:enums="clr-namespace:PingChecker.Enums"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Ping Checker" 
         Height="280" 
@@ -22,7 +23,8 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
     </Window.InputBindings>
     <Window.Resources>
-        <con:AlarmModeConverter x:Key="AlarmModeConverterKey"/>
+        <converter:AlarmModeConverter x:Key="AlarmModeConverter"/>
+        <!--<converter:LogScaleConverter x:Key="LogScaleConverter"/>-->
     </Window.Resources>
     <StackPanel Orientation="Horizontal"  >
         <TextBox Height="240" Margin="5,5,0,5" Text="{Binding Results}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="133" IsEnabled="False"/>
@@ -30,18 +32,33 @@
             <GroupBox Width="176" Height="75" Header="Alarm" DockPanel.Dock="Top">
                 <StackPanel>
                     <RadioButton GroupName="AlarmMode" Content="None" 
-                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter={x:Static enums:AlarmMode.None}}" />
-                                
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverter}, ConverterParameter={x:Static enums:AlarmMode.None}}" />
                     <RadioButton GroupName="AlarmMode" Content="When ping lower" 
-                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter={x:Static enums:AlarmMode.Lower}}" />
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverter}, ConverterParameter={x:Static enums:AlarmMode.Lower}}" />
                     <RadioButton GroupName="AlarmMode" Content="When ping higher" 
-                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverterKey}, ConverterParameter={x:Static enums:AlarmMode.Higher}}" />
+                                 IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverter}, ConverterParameter={x:Static enums:AlarmMode.Higher}}" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Width="176"  Header="Ping threshold" DockPanel.Dock="Top"  Height="80">
-                <StackPanel >
-                    <Label Content="{Binding PingLabel}"/>
-                    <Slider Value="{Binding PingThreshold}" HorizontalAlignment="Left" Margin="10,10,0,0" Width="150" Maximum="300" LargeChange="0" />
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Padding="15,5,0,5" Content="{Binding ExpPingThreshold}">
+                           
+                        </Label>
+                        <!--<Label Padding="15,5,0,5">
+                            <Label.Content>
+                                <Binding Path="PingThreshold" 
+                                         Converter="{StaticResource LogScaleConverter}">
+                                    <Binding.ConverterParameter>
+                                        <sys:Double>1.03</sys:Double>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </Label.Content>
+                        </Label>-->
+                        <Label Content=" ms" Padding="0,5,5,5"/>
+                    </StackPanel>
+                  
+                    <Slider Value="{Binding PingThreshold}" HorizontalAlignment="Left" Margin="10,10,0,0" Width="150" Maximum="300"  />
                 </StackPanel>
             </GroupBox>
             <GroupBox Width="176"  Header="Site" DockPanel.Dock="Top"  Height="45">

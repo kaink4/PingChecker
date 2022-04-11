@@ -36,7 +36,7 @@ public class MainWindowViewModel : MainWindowViewModelDesign
         }
     }
 
-    private string _site = "www.google.pl";
+    private string _site = Properties.Settings.Default.Site;
     public override string Site
     {
         get => _site;
@@ -47,7 +47,7 @@ public class MainWindowViewModel : MainWindowViewModelDesign
         }
     }
 
-    private int _pingThreshold = 133;
+    private int _pingThreshold = Properties.Settings.Default.PingThreshold;
     public override int PingThreshold
     {
         get => _pingThreshold;
@@ -64,7 +64,7 @@ public class MainWindowViewModel : MainWindowViewModelDesign
         get => (int)Math.Pow(1.03, Convert.ToDouble(_pingThreshold));
     }
 
-    private AlarmMode _alarmMode = AlarmMode.Lower;
+    private AlarmMode _alarmMode = (AlarmMode)Properties.Settings.Default.AlarmMode;
     public override AlarmMode AlarmMode
     {
         get => _alarmMode;
@@ -85,7 +85,7 @@ public class MainWindowViewModel : MainWindowViewModelDesign
     //    }
     //}
 
-    private readonly SoundPlayer _soundPlayer = new (Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/BELLLrg_Church bell (ID 0135)_BSB.wav"));
+    private readonly SoundPlayer _soundPlayer = new SoundPlayer(Resources.BELLLrg_Church_bell__ID_0135__BSB);
     private bool _alarm = false;
 
 
@@ -182,8 +182,14 @@ public class MainWindowViewModel : MainWindowViewModelDesign
             }
         });
     }
+    public void SaveSettings(object? sender, EventArgs e)
+    {
+        Properties.Settings.Default.PingThreshold = PingThreshold;
+        Properties.Settings.Default.Site = Site;
+        Properties.Settings.Default.AlarmMode = (int)AlarmMode;
 
-
+        Properties.Settings.Default.Save();
+    }
 
     //public ICommand GetSettingsCommand => new RelayCommand(_ => SomeText = JsonSerializer.Serialize(_options.Value));
     //public ICommand ShowSampleWindowCommand => new RelayCommand<string?>(mode =>

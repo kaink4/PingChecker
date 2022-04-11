@@ -22,5 +22,41 @@ namespace PingChecker.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("www.google.pl")]
+        public string Site {
+            get {
+                return ((string)(this["Site"]));
+            }
+            set {
+                this["Site"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("133")]
+        public int PingThreshold {
+            get {
+                return ((int)(this["PingThreshold"]));
+            }
+            set {
+                this["PingThreshold"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int AlarmMode {
+            get {
+                return ((int)(this["AlarmMode"]));
+            }
+            set {
+                this["AlarmMode"] = value;
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
         }
     }
 
-    public ICommand CloseCommand => new RelayCommand<ICloseable>(x =>
+    public virtual ICommand CloseCommand => new RelayCommand<ICloseable>(x =>
     {
         if (x == null)
         {

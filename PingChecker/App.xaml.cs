@@ -34,9 +34,9 @@ public partial class App : Application
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        var configuration = ConfigurationFactory.GetConfiguration(); 
+        //var configuration = ConfigurationFactory.GetConfiguration(); 
 
-        services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
+        //services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
 
 
         services.Scan(s => s.FromCallingAssembly()

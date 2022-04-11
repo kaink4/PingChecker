@@ -53,18 +53,11 @@ public class MainWindowViewModelDesign : ViewModelBase
         set { }
     }
 
-    //public virtual string AlarmMode
-    //{
-    //    get => "Higher";
-    //    set { }
-    //}
-
     public ICommand GetSettingsCommand => new RelayCommand(_ => { });
-
 
     public ICommand ShowSampleWindowCommand => new RelayCommand<string?>(_ => { });
 
-    public ICommand ChangeAlarmMode =>  new RelayCommand(_ => { });
+    public ICommand ShowAboutCommand => new RelayCommand(_ => { });
 
 }
 

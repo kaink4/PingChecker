@@ -192,17 +192,17 @@ public class MainWindowViewModel : MainWindowViewModelDesign
     }
 
     //public ICommand GetSettingsCommand => new RelayCommand(_ => SomeText = JsonSerializer.Serialize(_options.Value));
-    //public ICommand ShowSampleWindowCommand => new RelayCommand<string?>(mode =>
-    //{
-    //    var sampleWindow = _windowFactory.CreateWindow<SampleWindow>();
-    //    if (mode == "modal")
-    //    {
-    //        sampleWindow.ShowDialog();
-    //    }
-    //    else
-    //    {
-    //        sampleWindow.Show();
-    //    }
-    //});
+    public ICommand ShowSampleWindowCommand => new RelayCommand<string?>(mode =>
+    {
+        var sampleWindow = _windowFactory.CreateWindow<SampleWindow>();
+        if (mode == "modal")
+        {
+            sampleWindow.ShowDialog();
+        }
+        else
+        {
+            sampleWindow.Show();
+        }
+    });
 }
 

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PingChecker" 
         xmlns:design="clr-namespace:PingChecker.ViewModelsDesign" 
         xmlns:converter="clr-namespace:PingChecker.Converters"
+        
         d:DataContext="{d:DesignInstance Type=design:MainWindowViewModelDesign, d:IsDesignTimeCreatable=True}"
         xmlns:enums="clr-namespace:PingChecker.Enums"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -13,6 +14,7 @@
         Title="Ping Checker" 
         Height="280" 
         Width="342"
+
   >
 
     <Window.InputBindings>
@@ -27,7 +29,7 @@
     <StackPanel Orientation="Horizontal"  >
         <TextBox Height="240" Margin="5,5,0,5" Text="{Binding Results}"  TextWrapping="Wrap" VerticalAlignment="Top" Width="133" IsEnabled="False"/>
         <DockPanel Height="240" Margin="5,5,0,0" VerticalAlignment="Top">
-            <GroupBox Header="Alarm" DockPanel.Dock="Top">
+            <GroupBox Width="176" Height="75" Header="Alarm" DockPanel.Dock="Top">
                 <StackPanel>
                     <RadioButton GroupName="AlarmMode" Content="None" 
                                  IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverter}, ConverterParameter={x:Static enums:AlarmMode.None}}" />
@@ -37,23 +39,31 @@
                                  IsChecked="{Binding AlarmMode, Converter={StaticResource AlarmModeConverter}, ConverterParameter={x:Static enums:AlarmMode.Higher}}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Ping threshold" DockPanel.Dock="Top"  >
+            <GroupBox Width="176"  Header="Ping threshold" DockPanel.Dock="Top"  Height="80">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Padding="15,5,0,5" Content="{Binding ExpPingThreshold}"/>
+                        <Label Padding="15,5,0,5" Content="{Binding ExpPingThreshold}">
+                           
+                        </Label>
+                        <!--<Label Padding="15,5,0,5">
+                            <Label.Content>
+                                <Binding Path="PingThreshold" 
+                                         Converter="{StaticResource LogScaleConverter}">
+                                    <Binding.ConverterParameter>
+                                        <sys:Double>1.03</sys:Double>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </Label.Content>
+                        </Label>-->
                         <Label Content=" ms" Padding="0,5,5,5"/>
                     </StackPanel>
-
+                  
                     <Slider Value="{Binding PingThreshold}" HorizontalAlignment="Left" Margin="10,10,0,0" Width="150" Maximum="300"  />
                 </StackPanel>
             </GroupBox>
-            <GroupBox  Header="Site" DockPanel.Dock="Top" >
-                <TextBox  Text="{Binding Site, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <GroupBox Width="176"  Header="Site" DockPanel.Dock="Top"  Height="45">
+                <TextBox Text="{Binding Site, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </GroupBox>
-
-            <Grid DockPanel.Dock="Bottom">
-                <Button Content="About" Command="{Binding ShowAboutCommand}" Margin="126,27,0,0" ></Button>
-            </Grid>
         </DockPanel>
     </StackPanel>
 </Window>

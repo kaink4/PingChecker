@@ -27,6 +27,6 @@ public partial class MainWindow : Window, ICloseable
         InitializeComponent();
         DataContext = mainWindowViewModel;
 
-        Closed += mainWindowViewModel.SaveSettings;
+        this.Closed += mainWindowViewModel.SaveSettings;
     }
 }

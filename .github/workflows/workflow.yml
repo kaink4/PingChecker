@@ -31,5 +31,5 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
-        name: PingChecker.exe
+        name: PingChecker
         path: .\PingChecker\bin\Release\PingChecker\PingChecker.exe

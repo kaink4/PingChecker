@@ -76,16 +76,6 @@ public class MainWindowViewModel : MainWindowViewModelDesign
             OnPropertyChanged(nameof(AlarmMode));
         }
     }
-    //private string _alarmMode = "None";
-    //public override AlarmM AlarmMode
-    //{
-    //    get => _alarmMode;
-    //    set
-    //    {
-    //        _alarmMode = value;
-    //        OnPropertyChanged(nameof(AlarmMode));
-    //    }
-    //}
 
     private readonly BitmapFrame greenIcon = BitmapFrame.Create(new MemoryStream(Resources.Green));
     private readonly BitmapFrame redIcon = BitmapFrame.Create(new MemoryStream(Resources.Red));
@@ -121,6 +111,14 @@ public class MainWindowViewModel : MainWindowViewModelDesign
             var ping = new Ping();
             var stringBuilder = new StringBuilder();
 
+            Func<long?, bool> alarmOnFunc = AlarmMode switch
+            {
+                AlarmMode.None => x => false,
+                AlarmMode.Lower => x => x < ExpPingThreshold,
+                AlarmMode.Higher => x => x > ExpPingThreshold,
+                _ => throw new NotImplementedException(),
+            };
+
             while (true)
             {
                 var sleepTime = _timeout;
@@ -149,21 +147,13 @@ public class MainWindowViewModel : MainWindowViewModelDesign
 
                 var lastResults = results.TakeLast(5).Select(x => x.Ping);
 
-                Func<long?, bool> alarmOnFunc = AlarmMode switch
-                {
-                    AlarmMode.None => x => false,
-                    AlarmMode.Lower => x => x < ExpPingThreshold,
-                    AlarmMode.Higher => x => x > ExpPingThreshold,
-                    _ => throw new NotImplementedException(),
-                };
-
                 Icon = lastResults.Any(x => x == null) || lastResults.Any(x => x > ExpPingThreshold)
                     ? redIcon
                     : greenIcon;
 
                 if (!lastResults.Any(x => x == null) && !lastResults.Any(x => !alarmOnFunc(x)))
                 {
-                    if (!_alarm)
+                    if (!_alarm) 
                     {
                         _soundPlayer.PlayLooping();
                         _alarm = true;

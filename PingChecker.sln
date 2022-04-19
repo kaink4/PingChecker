@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PingChecker", "PingChecker\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PingChecker.Tests", "PingChecker.Tests\PingChecker.Tests.csproj", "{F6E7D900-D02A-475D-A1FB-A952688BC204}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{5432CDFE-1569-4C2F-A659-0AF2561ED252}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\workflow.yml = .github\workflows\workflow.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

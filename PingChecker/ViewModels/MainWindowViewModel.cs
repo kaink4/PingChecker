@@ -18,6 +18,8 @@ using System.Windows.Media;
 using System.IO;
 using PingChecker.ViewModelsDesign;
 using PingChecker.Enums;
+using System.Windows.Media.Imaging;
+using PingChecker;
 
 namespace PingChecker.ViewModels;
 
@@ -85,32 +87,39 @@ public class MainWindowViewModel : MainWindowViewModelDesign
     //    }
     //}
 
+    private readonly BitmapFrame greenIcon = BitmapFrame.Create(new MemoryStream(Resources.Green));
+    private readonly BitmapFrame redIcon = BitmapFrame.Create(new MemoryStream(Resources.Red));
+
+    private BitmapFrame _icon;
+    public override BitmapFrame Icon
+    {
+        get => _icon;
+        set
+        {
+            _icon = value;
+            OnPropertyChanged(nameof(Icon));
+        }
+    }
+    
     private readonly SoundPlayer _soundPlayer = new SoundPlayer(Resources.BELLLrg_Church_bell__ID_0135__BSB);
     private bool _alarm = false;
 
-
     public MainWindowViewModel()
     {
+        _icon = greenIcon;
 
         _soundPlayer.LoadAsync();
 
         StartPinging();
     }
 
-        
-
     private void StartPinging()
     {
         Task.Run(async () =>
-        {
-                
-
+        {       
             var results = new Queue<(string Status, long? Ping)>();
             var ping = new Ping();
-
-
             var stringBuilder = new StringBuilder();
-
 
             while (true)
             {
@@ -138,7 +147,7 @@ public class MainWindowViewModel : MainWindowViewModelDesign
                     results.Dequeue();
                 }
 
-                var lastResult = results.TakeLast(5).Select(x => x.Ping);
+                var lastResults = results.TakeLast(5).Select(x => x.Ping);
 
                 Func<long?, bool> alarmOnFunc = AlarmMode switch
                 {
@@ -148,8 +157,11 @@ public class MainWindowViewModel : MainWindowViewModelDesign
                     _ => throw new NotImplementedException(),
                 };
 
+                Icon = lastResults.Any(x => x == null) || lastResults.Any(x => x > ExpPingThreshold)
+                    ? redIcon
+                    : greenIcon;
 
-                if (!lastResult.Any(x => x == null) && !lastResult.Any(x => !alarmOnFunc(x)))
+                if (!lastResults.Any(x => x == null) && !lastResults.Any(x => !alarmOnFunc(x)))
                 {
                     if (!_alarm)
                     {

@@ -14,7 +14,7 @@
         Title="Ping Checker" 
         Height="280" 
         Width="342"
-
+        Icon="{Binding Icon}"
   >
 
     <Window.InputBindings>

@@ -16,10 +16,14 @@
 
   <ItemGroup>
     <None Remove="Resources\BELLLrg_Church bell %28ID 0135%29_BSB.wav" />
+    <None Remove="Resources\Green.png" />
+    <None Remove="Resources\Red.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\BELLLrg_Church bell (ID 0135)_BSB.wav" />
+    <EmbeddedResource Include="Resources\Green.png" />
+    <EmbeddedResource Include="Resources\Red.png" />
   </ItemGroup>
 
   <ItemGroup>

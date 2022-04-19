@@ -12,6 +12,9 @@ using PingChecker.Infrastructure;
 
 using PingChecker.ViewModels;
 using PingChecker.Enums;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace PingChecker.ViewModelsDesign;
 
@@ -53,18 +56,16 @@ public class MainWindowViewModelDesign : ViewModelBase
         set { }
     }
 
-    //public virtual string AlarmMode
-    //{
-    //    get => "Higher";
-    //    set { }
-    //}
+    public virtual BitmapFrame Icon
+    {
+        get => BitmapFrame.Create(new MemoryStream(Resources.Green));
+        set { }
+    }
 
     public ICommand GetSettingsCommand => new RelayCommand(_ => { });
-
 
     public ICommand ShowSampleWindowCommand => new RelayCommand<string?>(_ => { });
 
     public ICommand ChangeAlarmMode =>  new RelayCommand(_ => { });
-
 }
 

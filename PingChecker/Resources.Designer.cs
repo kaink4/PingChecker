@@ -68,5 +68,25 @@ namespace PingChecker {
                 return ResourceManager.GetStream("BELLLrg_Church_bell__ID_0135__BSB", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Green {
+            get {
+                object obj = ResourceManager.GetObject("Green", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Red {
+            get {
+                object obj = ResourceManager.GetObject("Red", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

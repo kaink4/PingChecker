@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31105.61
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PingChecker", "PingChecker\PingChecker.csproj", "{71DDA8A5-D134-4929-AE9F-5CCB92EB9A4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PingChecker.Tests", "PingChecker.Tests\PingChecker.Tests.csproj", "{F6E7D900-D02A-475D-A1FB-A952688BC204}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{71DDA8A5-D134-4929-AE9F-5CCB92EB9A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DDA8A5-D134-4929-AE9F-5CCB92EB9A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71DDA8A5-D134-4929-AE9F-5CCB92EB9A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E7D900-D02A-475D-A1FB-A952688BC204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E7D900-D02A-475D-A1FB-A952688BC204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E7D900-D02A-475D-A1FB-A952688BC204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E7D900-D02A-475D-A1FB-A952688BC204}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
